@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">TrecoX</string>
+
+    <string name="vp_title">Title</string>
+    <string name="vp_description">Description</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="start">Start</string>
+
+    <string name="hello_text">Hello !</string>
+    <string name="sign_in_text">Sign in to Continue</string>
+    <string name="country_code">+91</string>
+    <string name="mobile_number_hint">Enter Mobile Number</string>
+    <string name="login_text_line">Already have an account?</string>
+    <string name="login">Log in</string>
+
+    <string name="verify">Verify</string>
+    <string name="otp_text">Enter Your OTP</string>
+    <string name="remaining_seconds">Remaining seconds</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_order_list">Order List</string>
+    <string name="title_info">Info</string>
+
+    <string name="empty_company_list">Empty Company List</string>
+    <string name="name">Name</string>
+</resources>
