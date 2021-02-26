@@ -24,4 +24,11 @@
 
     <string name="empty_company_list">Empty Company List</string>
     <string name="name">Name</string>
+    <string name="email_id">Email Id</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="wholesalers_category">Wholesalers category</string>
+    <string name="address">Address</string>
+    <string name="shop">Shop</string>
+    <string name="add_info">Add Information</string>
+    <string name="pin_code">Pin code</string>
 </resources>

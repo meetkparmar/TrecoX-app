@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "1093903555653-id8t81vvdjbkgb5vdhp8ld9ho7u6dqmq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bebetterprogrammer.trecox",
-            "certificate_hash": "2560ecf5008f74a4ab93322e22d516a7512204c3"
-          }
-        },
-        {
           "client_id": "1093903555653-8pu9m9ttg208bv9a4onroiaut0j4lo11.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -31,11 +23,19 @@
           }
         },
         {
-          "client_id": "1093903555653-sb8sorfh0cbjbqgokojdt13rlhqil4mu.apps.googleusercontent.com",
+          "client_id": "1093903555653-gkns9bfu6ehv8qfdhgbt6fetks2pdgts.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bebetterprogrammer.trecox",
-            "certificate_hash": "268746bb6687f57fe35be59f4c6814728b9b9a3d"
+            "certificate_hash": "db8156675df21140a28bdc54bf4cc48cf6df0015"
+          }
+        },
+        {
+          "client_id": "1093903555653-id8t81vvdjbkgb5vdhp8ld9ho7u6dqmq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bebetterprogrammer.trecox",
+            "certificate_hash": "2560ecf5008f74a4ab93322e22d516a7512204c3"
           }
         },
         {
@@ -44,6 +44,14 @@
           "android_info": {
             "package_name": "com.bebetterprogrammer.trecox",
             "certificate_hash": "f60a273311835c993eccf12e6f3cac8ac4b039d0"
+          }
+        },
+        {
+          "client_id": "1093903555653-sb8sorfh0cbjbqgokojdt13rlhqil4mu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bebetterprogrammer.trecox",
+            "certificate_hash": "268746bb6687f57fe35be59f4c6814728b9b9a3d"
           }
         },
         {
