@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bebetterprogrammer.trecox.R
 import com.bebetterprogrammer.trecox.adapter.CompanyDetailsAdapter
 import com.bebetterprogrammer.trecox.models.Company
+import com.bebetterprogrammer.trecox.models.getCompanyInstance
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.google.gson.Gson
@@ -51,13 +52,10 @@ class HomeFragment : Fragment() {
                 tableMap?.get("company")?.let {
                     val rows = it as HashMap<String, Any>
                     for (key in rows.keys) {
-//                        if (companyList.size<=10) {
-//                        val row = rows[key] as Map<String, String>
-//                        val type: Type = object : TypeToken<Map<String, String>>() {}.type
-//                        val company = Gson().fromJson<Company>(row.toString(), type)
-//                            company?.let { companyList.add(it) }
-//                        } else
-//                            break
+                        val row = rows[key] as? HashMap<String, String>
+                        row?.let {
+                            companyList.add(getCompanyInstance(row))
+                        }
                     }
 
                     if (companyList.isEmpty()) {
