@@ -31,4 +31,13 @@
     <string name="shop">Shop</string>
     <string name="add_info">Add Information</string>
     <string name="pin_code">Pin code</string>
+    <string name="title_permission_dialog">Permission Needed</string>
+    <string name="message_permission_dialog_camera">Permission is needed for accessing the Camera </string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="message_permission_dialog_gallery">Allow to Access Photos, Media and Files on Your Device?</string>
+    <string name="upload_photo">Upload Photo</string>
+
+    //Errors
+    <string name="something_wrong_error">Something went wrong.\n Try again.</string>
 </resources>

@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_order_list"
-        android:name="com.bebetterprogrammer.trecox.ui.orderList.DashboardFragment"
-        android:label="@string/title_info"
+        android:name="com.bebetterprogrammer.trecox.ui.orderList.OrederListFragment"
+        android:label="@string/title_order_list"
         tools:layout="@layout/fragment_order_list" />
 
     <fragment
         android:id="@+id/navigation_user_info"
-        android:name="com.bebetterprogrammer.trecox.ui.userInfo.NotificationsFragment"
-        android:label="@string/title_order_list"
+        android:name="com.bebetterprogrammer.trecox.ui.userInfo.UserInfoFragment"
+        android:label="@string/title_info"
         tools:layout="@layout/fragment_user_info" />
 </navigation>
