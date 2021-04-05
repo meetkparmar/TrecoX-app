@@ -12,9 +12,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.bebetterprogrammer.trecox.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.FirebaseDatabase
@@ -38,6 +39,12 @@ class UserInfoFragment : Fragment() {
     var storageReference: StorageReference? = null
     var name: String? = null
     var imageurl: String? = null
+    var email: String? = null
+    var address: String? = null
+    var pinCode: String? = null
+    var shop: String? = null
+    var category: String? = null
+    var mobileNumber: String? = null
     private var progressDialog: ProgressDialog? = null
 
     override fun onCreateView(
@@ -67,6 +74,11 @@ class UserInfoFragment : Fragment() {
         btn_add_info.setOnClickListener {
             progressDialog = showLoadingDialog(requireActivity(), "Adding User Information")
             addUserInfo()
+        }
+
+        btn_edit.setOnClickListener {
+            edit_user_detail_layout.visibility = View.VISIBLE
+            user_detail_layout.visibility = View.GONE
         }
     }
 
@@ -154,12 +166,12 @@ class UserInfoFragment : Fragment() {
 
     private fun addUserInfo() {
         name = et_name.text.toString()
-        val email = et_email.text.toString()
-        val address = et_address.text.toString()
-        val pinCode = et_pin_code.text.toString()
-        val shop = et_shop.text.toString()
-        val category = et_wholesalers_category.text.toString()
-        val mobileNumber = et_mobile_number.text.toString()
+        email = et_email.text.toString()
+        address = et_address.text.toString()
+        pinCode = et_pin_code.text.toString()
+        shop = et_shop.text.toString()
+        category = et_wholesalers_category.text.toString()
+        mobileNumber = et_mobile_number.text.toString()
 
         val riversRef = storageReference?.child("wholesaler_image/${name}")
         val uploadTask = riversRef?.putFile(imageUri!!)
@@ -173,21 +185,22 @@ class UserInfoFragment : Fragment() {
 
                 val map = HashMap<String, Any>()
                 map["name"] = name!!
-                map["email"] = email
-                map["address"] = address
-                map["pinCode"] = pinCode
-                map["shop"] = shop
-                map["category"] = category
-                map["mobileNumber"] = mobileNumber
+                map["email"] = email!!
+                map["address"] = address!!
+                map["pinCode"] = pinCode!!
+                map["shop"] = shop!!
+                map["category"] = category!!
+                map["mobileNumber"] = mobileNumber!!
                 imageurl?.let {
                     map["profileUrl"] = imageurl!!
                 }
                 FirebaseDatabase.getInstance().reference.child("category_wholesalers")
-                    .child(category).push()
+                    .child(category!!)
+                    .child(name!!)
                     .setValue(map)
                     .addOnSuccessListener {
                         dismissLoadingDialog(progressDialog)
-                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                        updateUI()
                     }
                     .addOnFailureListener {
 
@@ -201,6 +214,18 @@ class UserInfoFragment : Fragment() {
                 showErrorToast(requireContext(), R.string.something_wrong_error)
             }
         }
+    }
+
+    private fun updateUI() {
+        edit_user_detail_layout.visibility = View.GONE
+        user_detail_layout.visibility = View.VISIBLE
+        tv_name.text = name
+        tv_mobile_number.text = mobileNumber
+        tv_email.text = email
+        tv_address.text = address
+        tv_category.text = category
+        tv_pin_code.text = pinCode
+        Picasso.with(context).load(imageUri).into(iv_user_image)
     }
 
     companion object {

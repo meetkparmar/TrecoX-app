@@ -14,7 +14,7 @@ class CompanyDetailsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     private var transaction: Company? = null
 
     fun bind(company: Company, position: Int) {
-        name.text = company.Company
+        name.text = company.displayName
 
     }
 

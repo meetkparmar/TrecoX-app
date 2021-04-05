@@ -1,5 +1,6 @@
 package com.bebetterprogrammer.trecox.ui.home
 
+import android.app.ProgressDialog
 import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
@@ -10,15 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bebetterprogrammer.trecox.R
 import com.bebetterprogrammer.trecox.adapter.CompanyDetailsAdapter
+import com.bebetterprogrammer.trecox.dismissLoadingDialog
 import com.bebetterprogrammer.trecox.models.Company
 import com.bebetterprogrammer.trecox.models.getCompanyInstance
+import com.bebetterprogrammer.trecox.showLoadingDialog
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.json.JSONObject
-import java.lang.reflect.Type
 
 
 class HomeFragment : Fragment() {
@@ -28,6 +27,7 @@ class HomeFragment : Fragment() {
     lateinit var adapter: CompanyDetailsAdapter
     val companyList = mutableListOf<Company>()
     var valueListner: ValueEventListener? = null
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,13 +43,15 @@ class HomeFragment : Fragment() {
         super.onStart()
         valueListner = object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
+                dismissLoadingDialog(progressDialog)
                 Log.w(ContentValues.TAG, "loadPost:onCancelled", databaseError.toException())
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 companyList.clear()
-                val tableMap = dataSnapshot.getValue<kotlin.collections.HashMap<String, Any>>()
-                tableMap?.get("company")?.let {
+                val tableMap = dataSnapshot.getValue<HashMap<String, Any>>()
+                tableMap?.get("users")?.let {
+                    dismissLoadingDialog(progressDialog)
                     val rows = it as HashMap<String, Any>
                     for (key in rows.keys) {
                         val row = rows[key] as? HashMap<String, String>
@@ -85,6 +87,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
+        progressDialog = showLoadingDialog(requireActivity(), "Fetching Company List")
     }
 
     private fun initAdapter() {

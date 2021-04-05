@@ -37,6 +37,7 @@
     <string name="ok">OK</string>
     <string name="message_permission_dialog_gallery">Allow to Access Photos, Media and Files on Your Device?</string>
     <string name="upload_photo">Upload Photo</string>
+    <string name="edit">Edit</string>
 
     //Errors
     <string name="something_wrong_error">Something went wrong.\n Try again.</string>
