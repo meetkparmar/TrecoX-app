@@ -5,7 +5,8 @@ data class Company(
     var contact: String = "",
     var displayName: String = "",
     var location: String? = "",
-    var email: String? = ""
+    var email: String? = "",
+    var subCategory: List<ProductDetail>? = null
 )
 
 fun getCompanyInstance(data: HashMap<String, String>): Company {
@@ -14,5 +15,6 @@ fun getCompanyInstance(data: HashMap<String, String>): Company {
         data["contact"] ?:"",
         data["displayName"] ?:"",
         data["location"] ?:"",
-        data["email"] ?:"")
+        data["email"] ?:""
+    )
 }

@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -46,6 +47,7 @@ class UserInfoFragment : Fragment() {
     var category: String? = null
     var mobileNumber: String? = null
     private var progressDialog: ProgressDialog? = null
+    private lateinit var localRepository : LocalRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,6 +59,20 @@ class UserInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        localRepository = LocalRepository(requireContext())
+
+        if (!localRepository.isFirstLaunch()) {
+            name = localRepository.getName()
+            email = localRepository.getEmail()
+            mobileNumber = localRepository.getMobileNumber()
+            address = localRepository.getAddress()
+            pinCode = localRepository.getPinCode()
+            shop = localRepository.getShop()
+            imageUri = localRepository.getImageUri()?.toUri()
+            updateUI()
+
+        }
 
         val adapter = context?.let { ArrayAdapter(it, R.layout.list_item, category_type) }
         et_wholesalers_category?.setAdapter(adapter)
@@ -173,6 +189,8 @@ class UserInfoFragment : Fragment() {
         category = et_wholesalers_category.text.toString()
         mobileNumber = et_mobile_number.text.toString()
 
+        localRepository.setCategory(category.toString())
+
         val riversRef = storageReference?.child("wholesaler_image/${name}")
         val uploadTask = riversRef?.putFile(imageUri!!)
 
@@ -199,6 +217,14 @@ class UserInfoFragment : Fragment() {
                     .child(name!!)
                     .setValue(map)
                     .addOnSuccessListener {
+                        localRepository.isFirstLaunch(false)
+                        localRepository.setName(name!!)
+                        localRepository.setEmail(email!!)
+                        localRepository.setAddress(address!!)
+                        localRepository.setPinCode(pinCode.toString())
+                        localRepository.setMobileNumber(mobileNumber!!)
+                        localRepository.setShop(shop!!)
+                        localRepository.setImageUri(imageUri.toString())
                         dismissLoadingDialog(progressDialog)
                         updateUI()
                     }

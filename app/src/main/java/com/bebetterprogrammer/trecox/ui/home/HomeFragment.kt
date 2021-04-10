@@ -9,12 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bebetterprogrammer.trecox.*
 import com.bebetterprogrammer.trecox.R
 import com.bebetterprogrammer.trecox.adapter.CompanyDetailsAdapter
-import com.bebetterprogrammer.trecox.dismissLoadingDialog
 import com.bebetterprogrammer.trecox.models.Company
 import com.bebetterprogrammer.trecox.models.getCompanyInstance
-import com.bebetterprogrammer.trecox.showLoadingDialog
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -28,6 +27,8 @@ class HomeFragment : Fragment() {
     val companyList = mutableListOf<Company>()
     var valueListner: ValueEventListener? = null
     private var progressDialog: ProgressDialog? = null
+    private var category: String? = ""
+    private lateinit var localRepository : LocalRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +42,7 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        category = localRepository.getCategory()
         valueListner = object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 dismissLoadingDialog(progressDialog)
@@ -56,7 +58,9 @@ class HomeFragment : Fragment() {
                     for (key in rows.keys) {
                         val row = rows[key] as? HashMap<String, String>
                         row?.let {
-                            companyList.add(getCompanyInstance(row))
+                            if (getCompanyInstance(row).category == category) {
+                                companyList.add(getCompanyInstance(row))
+                            }
                         }
                     }
 
@@ -86,6 +90,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        localRepository = LocalRepository(requireContext())
         initAdapter()
         progressDialog = showLoadingDialog(requireActivity(), "Fetching Company List")
     }

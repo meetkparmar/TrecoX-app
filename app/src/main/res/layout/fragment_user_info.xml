@@ -21,8 +21,8 @@
                 android:id="@+id/edit_user_detail_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                android:visibility="visible">
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:id="@+id/image_layout"
@@ -136,7 +136,7 @@
                         android:id="@+id/et_shop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapWords"/>
+                        android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -152,7 +152,7 @@
                         android:id="@+id/et_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapWords"/>
+                        android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -186,9 +186,9 @@
                 android:id="@+id/user_detail_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
                 android:padding="@dimen/padding_8dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/iv_user_image"
@@ -198,145 +198,147 @@
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cv_user_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/iv_user_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/btn_edit"
                     android:layout_marginStart="@dimen/margin_8dp"
+                    android:layout_marginTop="@dimen/margin_16dp"
                     android:layout_marginEnd="@dimen/margin_8dp"
-                    android:layout_marginTop="@dimen/margin_16dp">
+                    app:layout_constraintBottom_toTopOf="@id/btn_edit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_user_image">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_16dp">
+                        android:layout_marginStart="@dimen/margin_16dp"
+                        android:layout_marginEnd="@dimen/margin_16dp"
+                        android:layout_marginBottom="@dimen/margin_16dp">
 
                         <TextView
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
                             android:layout_marginTop="@dimen/margin_16dp"
                             android:text="@string/name"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/tv_name"
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="@dimen/margin_16dp"
                             android:text="@string/name"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_name"
-                            app:layout_constraintStart_toStartOf="parent"
                             android:text="@string/mobile_number"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
                         <TextView
                             android:id="@+id/tv_mobile_number"
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_name"
-                            app:layout_constraintEnd_toEndOf="parent"
                             android:text="@string/mobile_number"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
                         <TextView
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_mobile_number"
-                            app:layout_constraintStart_toStartOf="parent"
                             android:text="@string/email_id"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_mobile_number" />
 
                         <TextView
                             android:id="@+id/tv_email"
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_mobile_number"
-                            app:layout_constraintEnd_toEndOf="parent"
                             android:text="@string/email_id"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_mobile_number" />
 
                         <TextView
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_email"
-                            app:layout_constraintStart_toStartOf="parent"
                             android:text="@string/shop"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_email" />
 
                         <TextView
                             android:id="@+id/tv_shop"
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_email"
-                            app:layout_constraintEnd_toEndOf="parent"
                             android:text="@string/shop"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_email" />
 
                         <TextView
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_shop"
-                            app:layout_constraintStart_toStartOf="parent"
                             android:text="@string/wholesalers_category"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_shop" />
 
                         <TextView
                             android:id="@+id/tv_category"
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_shop"
-                            app:layout_constraintEnd_toEndOf="parent"
                             android:text="@string/wholesalers_category"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_shop" />
 
                         <TextView
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_category"
-                            app:layout_constraintStart_toStartOf="parent"
                             android:text="@string/address"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_category" />
 
                         <TextView
                             android:id="@+id/tv_address"
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_category"
-                            app:layout_constraintEnd_toEndOf="parent"
                             android:text="@string/address"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_category" />
 
                         <TextView
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_address"
-                            app:layout_constraintStart_toStartOf="parent"
                             android:text="@string/pin_code"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
                         <TextView
                             android:id="@+id/tv_pin_code"
+                            style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tv_address"
-                            app:layout_constraintEnd_toEndOf="parent"
                             android:text="@string/pin_code"
-                            style="@style/Widget.App.TextAppearance.Body1"/>
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_address" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
