@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.bebetterprogrammer.trecox.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
@@ -32,7 +33,8 @@ import kotlin.collections.HashMap
 
 class UserInfoFragment : Fragment() {
 
-    var category_type = arrayOf("Stationery", "Watch")
+    private val ONE_MEGABYTE: Long = 1024 * 1024
+    private var category_type = arrayOf("Stationery", "Watch")
     private val permission = GetPermission()
     var imageUri: Uri? = null
     var photo: Bitmap? = null
@@ -70,6 +72,7 @@ class UserInfoFragment : Fragment() {
             pinCode = localRepository.getPinCode()
             shop = localRepository.getShop()
             imageUri = localRepository.getImageUri()?.toUri()
+            category = localRepository.getCategory()
             updateUI()
 
         }
@@ -95,6 +98,17 @@ class UserInfoFragment : Fragment() {
         btn_edit.setOnClickListener {
             edit_user_detail_layout.visibility = View.VISIBLE
             user_detail_layout.visibility = View.GONE
+            iv_image.visibility = View.VISIBLE
+            image_layout.visibility = View.GONE
+
+            et_name.setText(name)
+            et_email.setText(email)
+            et_mobile_number.setText(mobileNumber)
+            et_address.setText(address)
+//            et_wholesalers_category.setText(category)
+            et_pin_code.setText(pinCode)
+            et_shop.setText(shop)
+            Picasso.with(context).load(imageUri).into(iv_image)
         }
     }
 
@@ -251,6 +265,7 @@ class UserInfoFragment : Fragment() {
         tv_address.text = address
         tv_category.text = category
         tv_pin_code.text = pinCode
+        tv_category.text = category
         Picasso.with(context).load(imageUri).into(iv_user_image)
     }
 

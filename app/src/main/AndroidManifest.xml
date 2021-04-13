@@ -14,11 +14,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrecoX">
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".OtpVerificationActivity"/>
-        <activity android:name=".OnBoardingActivity" android:theme="@style/Widget.App.NoActionBar"/>
-        <activity android:name=".MainActivity" android:label="@string/app_name"/>
-        <activity android:name=".SplashActivity" android:theme="@style/Widget.App.SplashScreenNoActionBar">
+        <activity android:name=".ui.ProductDetailActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".OtpVerificationActivity" />
+        <activity
+            android:name=".OnBoardingActivity"
+            android:theme="@style/Widget.App.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/Widget.App.SplashScreenNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

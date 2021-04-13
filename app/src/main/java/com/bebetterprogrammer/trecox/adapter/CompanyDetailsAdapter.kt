@@ -2,9 +2,10 @@ package com.bebetterprogrammer.trecox.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bebetterprogrammer.trecox.ItemClicked
 import com.bebetterprogrammer.trecox.models.Company
 
-class CompanyDetailsAdapter : RecyclerView.Adapter<CompanyDetailsViewHolder>() {
+class CompanyDetailsAdapter(private val itemClickedListener: ItemClicked) : RecyclerView.Adapter<CompanyDetailsViewHolder>() {
 
     var data = listOf<Company>()
         set(value) {
@@ -22,7 +23,7 @@ class CompanyDetailsAdapter : RecyclerView.Adapter<CompanyDetailsViewHolder>() {
 
     override fun onBindViewHolder(holder: CompanyDetailsViewHolder, position: Int) {
         val item = data[position]
-        holder.bind(item, position)
+        holder.bind(item, position, itemClickedListener)
     }
 
 }

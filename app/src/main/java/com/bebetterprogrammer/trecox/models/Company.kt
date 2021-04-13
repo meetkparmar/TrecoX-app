@@ -1,5 +1,9 @@
 package com.bebetterprogrammer.trecox.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Company(
     var category: String = "",
     var contact: String = "",
@@ -7,7 +11,7 @@ data class Company(
     var location: String? = "",
     var email: String? = "",
     var subCategory: List<ProductDetail>? = null
-)
+): Parcelable
 
 fun getCompanyInstance(data: HashMap<String, String>): Company {
     return Company(

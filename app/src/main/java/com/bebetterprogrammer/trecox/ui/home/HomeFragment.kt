@@ -2,6 +2,7 @@ package com.bebetterprogrammer.trecox.ui.home
 
 import android.app.ProgressDialog
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,10 +11,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bebetterprogrammer.trecox.*
+import com.bebetterprogrammer.trecox.Constant.COMPANY
 import com.bebetterprogrammer.trecox.R
 import com.bebetterprogrammer.trecox.adapter.CompanyDetailsAdapter
 import com.bebetterprogrammer.trecox.models.Company
 import com.bebetterprogrammer.trecox.models.getCompanyInstance
+import com.bebetterprogrammer.trecox.ui.ProductDetailActivity
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -98,7 +101,15 @@ class HomeFragment : Fragment() {
     private fun initAdapter() {
         rv_company_list.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        adapter = CompanyDetailsAdapter()
+        adapter = CompanyDetailsAdapter(ItemClicked { position -> showProductDetailFragment(position) })
         rv_company_list.adapter = adapter
+    }
+
+    private fun showProductDetailFragment(position: Int) {
+        val intent = Intent(context, ProductDetailActivity::class.java)
+        val args = Bundle()
+        args.putParcelable(COMPANY, companyList[position])
+        intent.putExtra("BUNDLE", args)
+        startActivity(intent)
     }
 }
