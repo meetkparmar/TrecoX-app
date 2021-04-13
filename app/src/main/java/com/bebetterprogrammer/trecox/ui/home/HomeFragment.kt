@@ -16,7 +16,7 @@ import com.bebetterprogrammer.trecox.R
 import com.bebetterprogrammer.trecox.adapter.CompanyDetailsAdapter
 import com.bebetterprogrammer.trecox.models.Company
 import com.bebetterprogrammer.trecox.models.getCompanyInstance
-import com.bebetterprogrammer.trecox.ui.ProductDetailActivity
+import com.bebetterprogrammer.trecox.ui.ComapnyDetailActivity
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -106,7 +106,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showProductDetailFragment(position: Int) {
-        val intent = Intent(context, ProductDetailActivity::class.java)
+        val intent = Intent(context, ComapnyDetailActivity::class.java)
         val args = Bundle()
         args.putParcelable(COMPANY, companyList[position])
         intent.putExtra("BUNDLE", args)

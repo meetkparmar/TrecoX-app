@@ -6,7 +6,7 @@ import com.bebetterprogrammer.trecox.Constant.COMPANY
 import com.bebetterprogrammer.trecox.R
 import com.bebetterprogrammer.trecox.models.Company
 
-class ProductDetailActivity : AppCompatActivity() {
+class ComapnyDetailActivity : AppCompatActivity() {
 
     lateinit var company: Company
 
