@@ -1,4 +1,4 @@
-package com.bebetterprogrammer.trecox.ui.userInfo
+package com.bebetterprogrammer.trecox.ui
 
 import android.app.ProgressDialog
 import android.content.Context
@@ -12,15 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.bebetterprogrammer.trecox.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
@@ -91,8 +89,21 @@ class UserInfoFragment : Fragment() {
             uploadPhoto()
         }
         btn_add_info.setOnClickListener {
-            progressDialog = showLoadingDialog(requireActivity(), "Adding User Information")
-            addUserInfo()
+            when {
+                et_name.text.isNullOrEmpty() -> et_name.error = "Required Field"
+                et_email.text.isNullOrEmpty() -> et_email.error = "Required Field"
+                et_address.text.isNullOrEmpty() -> et_address.error = "Required Field"
+                et_shop.text.isNullOrEmpty() -> et_shop.error = "Required Field"
+                et_pin_code.text.isNullOrEmpty() -> et_pin_code.error = "Required Field"
+                et_mobile_number.text.isNullOrEmpty() -> et_mobile_number.error = "Required Field"
+                et_wholesalers_category.text.isNullOrEmpty() -> et_wholesalers_category.error = "Required Field"
+                imageUri == null -> Toast.makeText(context, "Please Select Photo", Toast.LENGTH_SHORT).show()
+                else -> {
+                    progressDialog = showLoadingDialog(requireActivity(), "Adding User Information")
+                    addUserInfo()
+                }
+            }
+
         }
 
         btn_edit.setOnClickListener {
@@ -105,7 +116,7 @@ class UserInfoFragment : Fragment() {
             et_email.setText(email)
             et_mobile_number.setText(mobileNumber)
             et_address.setText(address)
-//            et_wholesalers_category.setText(category)
+            et_wholesalers_category.setText(category)
             et_pin_code.setText(pinCode)
             et_shop.setText(shop)
             Picasso.with(context).load(imageUri).into(iv_image)
@@ -154,12 +165,16 @@ class UserInfoFragment : Fragment() {
 
     private fun openCamera() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(cameraIntent, Companion.REQUEST_IMAGE_FROM_CAMERA)
+        startActivityForResult(cameraIntent,
+            REQUEST_IMAGE_FROM_CAMERA
+        )
     }
 
     private fun openGallery() {
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, Companion.REQUEST_IMAGE_FROM_GALLERY)
+        startActivityForResult(galleryIntent,
+            REQUEST_IMAGE_FROM_GALLERY
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

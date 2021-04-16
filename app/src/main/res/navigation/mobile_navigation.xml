@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.bebetterprogrammer.trecox.ui.home.HomeFragment"
+        android:name="com.bebetterprogrammer.trecox.ui.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_order_list"
-        android:name="com.bebetterprogrammer.trecox.ui.orderList.OrederListFragment"
+        android:name="com.bebetterprogrammer.trecox.ui.OrederListFragment"
         android:label="@string/title_order_list"
         tools:layout="@layout/fragment_order_list" />
 
     <fragment
         android:id="@+id/navigation_user_info"
-        android:name="com.bebetterprogrammer.trecox.ui.userInfo.UserInfoFragment"
+        android:name="com.bebetterprogrammer.trecox.ui.UserInfoFragment"
         android:label="@string/title_info"
         tools:layout="@layout/fragment_user_info" />
 </navigation>

@@ -68,6 +68,7 @@ dependencies {
     // Firebase Storage
     implementation platform('com.google.firebase:firebase-bom:26.8.0')
     implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.firebaseui:firebase-ui-storage:6.4.0'
 
     //Retrofit
     compile('com.squareup.retrofit2:retrofit:2.5.0') {

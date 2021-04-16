@@ -1,4 +1,4 @@
-package com.bebetterprogrammer.trecox.ui.orderList
+package com.bebetterprogrammer.trecox.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

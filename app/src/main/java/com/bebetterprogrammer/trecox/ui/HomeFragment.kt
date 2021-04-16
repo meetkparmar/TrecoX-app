@@ -1,4 +1,4 @@
-package com.bebetterprogrammer.trecox.ui.home
+package com.bebetterprogrammer.trecox.ui
 
 import android.app.ProgressDialog
 import android.content.ContentValues
@@ -16,7 +16,6 @@ import com.bebetterprogrammer.trecox.R
 import com.bebetterprogrammer.trecox.adapter.CompanyDetailsAdapter
 import com.bebetterprogrammer.trecox.models.Company
 import com.bebetterprogrammer.trecox.models.getCompanyInstance
-import com.bebetterprogrammer.trecox.ui.ComapnyDetailActivity
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -59,7 +58,7 @@ class HomeFragment : Fragment() {
                     dismissLoadingDialog(progressDialog)
                     val rows = it as HashMap<String, Any>
                     for (key in rows.keys) {
-                        val row = rows[key] as? HashMap<String, String>
+                        val row = rows[key] as? HashMap<String, Any>
                         row?.let {
                             if (getCompanyInstance(row).category == category) {
                                 companyList.add(getCompanyInstance(row))
@@ -106,7 +105,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showProductDetailFragment(position: Int) {
-        val intent = Intent(context, ComapnyDetailActivity::class.java)
+        val intent = Intent(context, CompanyDetailActivity::class.java)
         val args = Bundle()
         args.putParcelable(COMPANY, companyList[position])
         intent.putExtra("BUNDLE", args)

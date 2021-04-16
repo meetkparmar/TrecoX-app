@@ -1,4 +1,4 @@
-package com.bebetterprogrammer.trecox
+package com.bebetterprogrammer.trecox.ui
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bebetterprogrammer.trecox.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +20,10 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_order_list, R.id.navigation_user_info))
+            R.id.navigation_home,
+            R.id.navigation_order_list,
+            R.id.navigation_user_info
+        ))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

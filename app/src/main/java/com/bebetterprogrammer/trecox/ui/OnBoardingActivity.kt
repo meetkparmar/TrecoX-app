@@ -1,4 +1,4 @@
-package com.bebetterprogrammer.trecox
+package com.bebetterprogrammer.trecox.ui
 
 import android.content.Intent
 import android.graphics.Color

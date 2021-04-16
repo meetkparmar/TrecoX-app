@@ -39,6 +39,15 @@
     <string name="upload_photo">Upload Photo</string>
     <string name="edit">Edit</string>
 
+    <string name="products">Products</string>
+    <string name="select_products">Select Products</string>
+    <string name="send_connection_request">Send Connection Request</string>
+    <string name="pending">Pending</string>
+    <string name="accepted">Accepted</string>
+    <string name="rejected">Rejected</string>
+    <string name="price">Price</string>
+    <string name="mrp">MRP</string>
+
     //Errors
     <string name="something_wrong_error">Something went wrong.\n Try again.</string>
     <!-- TODO: Remove or change this placeholder text -->
