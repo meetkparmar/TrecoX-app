@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_90"
     tools:context=".ui.UserInfoFragment">
 
     <ScrollView
@@ -49,9 +50,9 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="@dimen/padding_16dp"
+                    android:background="@drawable/bg_rounded_border"
                     android:scaleType="centerCrop"
                     android:visibility="invisible"
-                    android:background="@drawable/bg_rounded_border"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -178,7 +179,10 @@
                     android:id="@+id/btn_add_info"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_margin="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:layout_marginBottom="@dimen/margin_16dp"
                     android:text="@string/add_info"
                     app:layout_constraintTop_toBottomOf="@id/text_input_layout7" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -194,9 +198,9 @@
                     android:id="@+id/iv_user_image"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:layout_marginTop="@dimen/padding_16dp"
-                    android:scaleType="centerCrop"
+                    android:layout_marginTop="@dimen/margin_8dp"
                     android:background="@drawable/bg_rounded_border"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -205,10 +209,9 @@
                     android:id="@+id/cv_user_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_16dp"
-                    android:layout_marginTop="@dimen/margin_16dp"
-                    android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_marginBottom="@dimen/margin_16dp"
+                    android:layout_margin="@dimen/margin_8dp"
+                    app:cardCornerRadius="@dimen/corner_radius_8dp"
+                    app:cardElevation="@dimen/elevations_4dp"
                     app:layout_constraintBottom_toTopOf="@id/btn_edit"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -217,16 +220,12 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_16dp"
-                        android:layout_marginStart="@dimen/margin_16dp"
-                        android:layout_marginEnd="@dimen/margin_16dp"
-                        android:layout_marginBottom="@dimen/margin_16dp">
+                        android:padding="@dimen/margin_16dp">
 
                         <TextView
                             style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_16dp"
                             android:text="@string/name"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -236,7 +235,6 @@
                             style="@style/Widget.App.TextAppearance.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_16dp"
                             android:text="@string/name"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -350,7 +348,7 @@
                     android:id="@+id/btn_edit"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_margin="@dimen/margin_16dp"
+                    android:layout_margin="@dimen/margin_8dp"
                     android:text="@string/edit"
                     app:layout_constraintTop_toBottomOf="@id/cv_user_detail" />
 

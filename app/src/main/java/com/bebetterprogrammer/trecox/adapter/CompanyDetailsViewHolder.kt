@@ -12,7 +12,6 @@ import com.bebetterprogrammer.trecox.models.Company
 class CompanyDetailsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
     private val name = view.findViewById<TextView>(R.id.tv_name)
-    private var transaction: Company? = null
 
     fun bind(company: Company, position: Int, itemClickedListener: ItemClicked) {
         name.text = company.displayName

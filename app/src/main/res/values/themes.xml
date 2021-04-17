@@ -16,6 +16,7 @@
         <item name="materialCardViewStyle">@style/Widget.App.Material.CardView</item>
         <item name="checkboxStyle">@style/Widget.App.Material.Checkbox</item>
         <item name="textInputStyle">@style/Widget.App.Material.TextInputLayout</item>
+        <item name="toolbarStyle">@style/Widget.App.Material.ToolBar.Colored</item>
         <!--Typography-->
         <item name="textAppearanceHeadline1">@style/Widget.App.TextAppearance.HeadLine1</item>
         <item name="textAppearanceHeadline2">@style/Widget.App.TextAppearance.HeadLine2</item>

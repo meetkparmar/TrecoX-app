@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment
 import com.bebetterprogrammer.trecox.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso

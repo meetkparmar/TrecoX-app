@@ -14,7 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrecoX">
-        <activity android:name=".ui.CompanyDetailActivity"></activity>
+        <activity android:name=".ui.ProductOrderActivity"
+            android:theme="@style/Widget.App.NoActionBar" />
+        <activity android:name=".ui.CompanyDetailActivity"
+            android:theme="@style/Widget.App.NoActionBar"/>
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.OtpVerificationActivity" />
         <activity

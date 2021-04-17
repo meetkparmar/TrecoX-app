@@ -20,7 +20,7 @@
 
     <string name="title_home">Home</string>
     <string name="title_order_list">Order List</string>
-    <string name="title_info">Info</string>
+    <string name="title_info">User Info</string>
 
     <string name="empty_company_list">Empty Company List</string>
     <string name="name">Name</string>
@@ -48,6 +48,9 @@
     <string name="rejected">Rejected</string>
     <string name="price">Price</string>
     <string name="mrp">MRP</string>
+    <string name="empty_product_list">Empty Product List</string>
+    <string name="company_detail">Company Detail</string>
+    <string name="product_detail">Product Detail</string>
 
     //Errors
     <string name="something_wrong_error">Something went wrong.\n Try again.</string>
