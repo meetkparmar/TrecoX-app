@@ -1,9 +1,9 @@
 package com.bebetterprogrammer.trecox.ui
 
 import android.app.ProgressDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bebetterprogrammer.trecox.*
 import com.bebetterprogrammer.trecox.Constant.COMPANY_NAME
 import com.bebetterprogrammer.trecox.Constant.CONNECTED
@@ -12,6 +12,9 @@ import com.bebetterprogrammer.trecox.models.ProductDetail
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product_order.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 class ProductOrderActivity : AppCompatActivity() {
 
@@ -23,6 +26,7 @@ class ProductOrderActivity : AppCompatActivity() {
     var wholesalerName: String? = null
     var companyName: String? = null
     private var progressDialog: ProgressDialog? = null
+    private var dateInString: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +81,9 @@ class ProductOrderActivity : AppCompatActivity() {
                     Toast.makeText(this, "Please Add At least 1 item!", Toast.LENGTH_SHORT).show()
                 } else {
                     progressDialog = showLoadingDialog(this, getString(R.string.ordering_product))
+                    val c = Calendar.getInstance().time
+                    val df = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+                    dateInString = df.format(c)
                     sendOrderInUser()
                 }
             }
@@ -89,6 +96,7 @@ class ProductOrderActivity : AppCompatActivity() {
         map["subCategory"] = productDetail.subCategory.toString()
         map["totalItems"] = totalItems.toString()
         map["totalPrice"] = totalPrice.toString()
+        map["date"] = dateInString!!
         FirebaseDatabase.getInstance().reference.child("connection_users")
             .child(companyName!!)
             .child(wholesalerName!!)
@@ -110,6 +118,7 @@ class ProductOrderActivity : AppCompatActivity() {
         map["subCategory"] = productDetail.subCategory.toString()
         map["totalItems"] = totalItems.toString()
         map["totalPrice"] = totalPrice.toString()
+        map["date"] = dateInString!!
         FirebaseDatabase.getInstance().reference.child("connections_wholesalers")
             .child(wholesalerName!!)
             .child(companyName!!)
@@ -125,5 +134,14 @@ class ProductOrderActivity : AppCompatActivity() {
                 dismissLoadingDialog(progressDialog)
                 showErrorToast(this, R.string.something_wrong_error)
             }
+    }
+
+    fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
     }
 }

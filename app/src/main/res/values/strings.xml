@@ -54,9 +54,13 @@
     <string name="product_detail">Product Detail</string>
 
     <string name="add_items">Add Items</string>
+    <string name="total_items">Total Items</string>
     <string name="order">Order</string>
     <string name="category">Category</string>
     <string name="ordering_product">Ordering Product</string>
+    <string name="empty_order_list">Empty Order List</string>
+    <string name="company_name">Company Name</string>
+    <string name="date">Date</string>
 
     //Errors
     <string name="something_wrong_error">Something went wrong.\n Try again.</string>

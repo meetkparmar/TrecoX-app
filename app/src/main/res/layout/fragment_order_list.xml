@@ -7,4 +7,25 @@
     tools:context=".ui.OrederListFragment"
     android:background="@color/grey_90">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_order_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/order_details_item" />
+
+    <TextView
+        android:id="@+id/tv_empty_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_order_list"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.App.TextAppearance.Body1"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
