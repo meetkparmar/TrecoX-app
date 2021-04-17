@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bebetterprogrammer.trecox.*
 import com.bebetterprogrammer.trecox.Constant.COMPANY
+import com.bebetterprogrammer.trecox.Constant.COMPANY_NAME
 import com.bebetterprogrammer.trecox.Constant.CONNECTED
 import com.bebetterprogrammer.trecox.Constant.PRODUCT_DETAIL
 import com.bebetterprogrammer.trecox.R
@@ -116,16 +117,24 @@ class CompanyDetailActivity : AppCompatActivity() {
                         if (key == "status") {
                             connectionSatus = map[key]
                         }
-                    if (connectionSatus == "Accept") {
-                        isConnected = true
-                        tv_connection_status.text = "Connected"
-                        tv_connection_status.visibility = View.VISIBLE
-                        tv_connection_status.setTextColor(Color.parseColor("#00ff00"))
-                        btn_connection.visibility = View.GONE
-                    } else if (connectionSatus == "Pending") {
-                        tv_connection_status.visibility = View.VISIBLE
-                        tv_connection_status.setTextColor(Color.parseColor("#ffbe55"))
-                        btn_connection.visibility = View.GONE
+                    when (connectionSatus) {
+                        "Accepted" -> {
+                            isConnected = true
+                            tv_connection_status.text = "Connected"
+                            tv_connection_status.visibility = View.VISIBLE
+                            tv_connection_status.setTextColor(Color.parseColor("#00ff00"))
+                            btn_connection.visibility = View.GONE
+                        }
+                        "Pending" -> {
+                            tv_connection_status.visibility = View.VISIBLE
+                            tv_connection_status.setTextColor(Color.parseColor("#ffbe55"))
+                            btn_connection.visibility = View.GONE
+                        }
+                        "Rejected" -> {
+                            tv_connection_status.text = "Rejected"
+                            tv_connection_status.visibility = View.VISIBLE
+                            tv_connection_status.setTextColor(Color.parseColor("#ff0000"))
+                        }
                     }
                 }
             }
@@ -207,6 +216,7 @@ class CompanyDetailActivity : AppCompatActivity() {
         val args = Bundle()
         args.putParcelable(PRODUCT_DETAIL, productList[position])
         args.putBoolean(CONNECTED, isConnected)
+        args.putString(COMPANY_NAME, company.displayName)
         intent.putExtra("BUNDLE", args)
         startActivity(intent)
     }

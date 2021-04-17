@@ -61,37 +61,4 @@
             android:src="@drawable/ic_baseline_arrow_forward_ios_24"
             android:layout_marginEnd="@dimen/margin_16dp"/>
 
-<!--        <TextView-->
-<!--            android:id="@+id/mrp"-->
-<!--            style="@style/Widget.App.TextAppearance.Body1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="@dimen/margin_16dp"-->
-<!--            android:layout_marginTop="@dimen/margin_8dp"-->
-<!--            android:text="@string/mrp"-->
-<!--            app:layout_constraintStart_toEndOf="@id/product_image"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/price" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_mrp"-->
-<!--            style="@style/Widget.App.TextAppearance.Body1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="@dimen/margin_16dp"-->
-<!--            android:layout_marginTop="@dimen/margin_8dp"-->
-<!--            android:text="@string/mrp"-->
-<!--            app:layout_constraintStart_toEndOf="@id/mrp"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/price" />-->
-
-<!--        <TextView-->
-<!--            style="@style/Widget.App.TextAppearance.Body2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="@dimen/margin_16dp"-->
-<!--            android:layout_marginTop="@dimen/margin_8dp"-->
-<!--            android:maxLines="1"-->
-<!--            android:text="@string/vp_description"-->
-<!--            app:layout_constraintStart_toEndOf="@id/product_image"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/mrp" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>
