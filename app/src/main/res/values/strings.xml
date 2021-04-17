@@ -47,13 +47,18 @@
     <string name="accepted">Accepted</string>
     <string name="rejected">Rejected</string>
     <string name="price">Price</string>
+    <string name="total_price">Total Price</string>
     <string name="mrp">MRP</string>
     <string name="empty_product_list">Empty Product List</string>
     <string name="company_detail">Company Detail</string>
     <string name="product_detail">Product Detail</string>
 
+    <string name="add_items">Add Items</string>
+    <string name="order">Order</string>
+    <string name="category">Category</string>
+
     //Errors
     <string name="something_wrong_error">Something went wrong.\n Try again.</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="connection_error">You can not send order because of you have not connect with this Company\n Try again.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

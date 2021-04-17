@@ -139,11 +139,27 @@ class UserInfoFragment : Fragment() {
             if (task.isSuccessful) {
                 downloadUri = task.result.toString()
                 addUserInfo()
+                addUserInfoInConnectionTable()
             } else {
                 dismissLoadingDialog(progressDialog)
                 showErrorToast(requireContext(), R.string.something_wrong_error)
             }
         }
+    }
+
+    private fun addUserInfoInConnectionTable() {
+        val map = HashMap<String, String>()
+        map["category"] = category!!
+        FirebaseDatabase.getInstance().reference.child("connections_wholesalers")
+            .child(name!!)
+            .setValue(map)
+            .addOnSuccessListener {
+                dismissLoadingDialog(progressDialog)
+            }
+            .addOnFailureListener {
+                dismissLoadingDialog(progressDialog)
+                showErrorToast(requireContext(), R.string.something_wrong_error)
+            }
     }
 
     private fun addUserInfo() {

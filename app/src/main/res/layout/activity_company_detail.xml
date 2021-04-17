@@ -130,6 +130,18 @@
                         app:layout_constraintStart_toEndOf="@id/ic_location"
                         app:layout_constraintTop_toBottomOf="@id/tv_mobile_number" />
 
+                    <TextView
+                        android:id="@+id/tv_connection_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tv_address"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginStart="@dimen/margin_8dp"
+                        android:text="Connection Pending"
+                        android:visibility="gone"
+                        style="@style/Widget.App.TextAppearance.Body1"/>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>

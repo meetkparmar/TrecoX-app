@@ -4,4 +4,5 @@ object Constant {
 
     const val COMPANY = "company"
     const val PRODUCT_DETAIL = "product_details"
+    const val CONNECTED = "connected"
 }

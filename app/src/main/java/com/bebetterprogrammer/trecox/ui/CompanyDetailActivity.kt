@@ -1,8 +1,11 @@
 package com.bebetterprogrammer.trecox.ui
 
 import android.app.ProgressDialog
+import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -10,16 +13,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bebetterprogrammer.trecox.*
 import com.bebetterprogrammer.trecox.Constant.COMPANY
+import com.bebetterprogrammer.trecox.Constant.CONNECTED
 import com.bebetterprogrammer.trecox.Constant.PRODUCT_DETAIL
+import com.bebetterprogrammer.trecox.R
 import com.bebetterprogrammer.trecox.adapter.ProductDetailsAdapter
 import com.bebetterprogrammer.trecox.models.Company
 import com.bebetterprogrammer.trecox.models.ProductDetail
+import com.bebetterprogrammer.trecox.models.getCompanyInstance
 import com.bebetterprogrammer.trecox.models.getProductDetailInstance
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_company_detail.*
+import kotlinx.android.synthetic.main.activity_company_detail.tv_empty_list
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class CompanyDetailActivity : AppCompatActivity() {
@@ -29,10 +38,14 @@ class CompanyDetailActivity : AppCompatActivity() {
     private var subCategories: ArrayList<String> = ArrayList()
     var storage: FirebaseStorage? = null
     var storageReference: StorageReference? = null
+    lateinit var database: DatabaseReference
+    var valueListner: ValueEventListener? = null
     private lateinit var localRepository : LocalRepository
     var name: String? = null
     lateinit var adapter: ProductDetailsAdapter
     private var productList = mutableListOf<ProductDetail>()
+    private var connectionSatus: String? = null
+    private var isConnected: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +82,10 @@ class CompanyDetailActivity : AppCompatActivity() {
 
         storage = FirebaseStorage.getInstance()
         storageReference = storage!!.reference
+        database = FirebaseDatabase.getInstance().reference
+
+        fetchConnectionStatus()
+
         Picasso.with(this).load(company.logoUrl).into(company_image)
         company_image.clipToOutline = true
 
@@ -84,6 +101,38 @@ class CompanyDetailActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+    }
+
+    private fun fetchConnectionStatus() {
+        valueListner = object : ValueEventListener {
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w(ContentValues.TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val map = dataSnapshot.child("connections_wholesalers").child(name!!).child(company.displayName).value as? Map<String, String>
+                if (map != null) {
+                    for (key in map.keys)
+                        if (key == "status") {
+                            connectionSatus = map[key]
+                        }
+                    if (connectionSatus == "Accept") {
+                        isConnected = true
+                        tv_connection_status.text = "Connected"
+                        tv_connection_status.visibility = View.VISIBLE
+                        tv_connection_status.setTextColor(Color.parseColor("#00ff00"))
+                        btn_connection.visibility = View.GONE
+                    } else if (connectionSatus == "Pending") {
+                        tv_connection_status.visibility = View.VISIBLE
+                        tv_connection_status.setTextColor(Color.parseColor("#ffbe55"))
+                        btn_connection.visibility = View.GONE
+                    }
+                }
+            }
+        }
+        valueListner?.let {
+            database.addValueEventListener(it)
+        }
     }
 
     private fun sendRequestInUser() {
@@ -106,7 +155,6 @@ class CompanyDetailActivity : AppCompatActivity() {
     private fun sendRequestInWholesaler() {
         val map = HashMap<String, Any>()
         map["status"] = getString(R.string.pending)
-        map["category"] = localRepository.getCategory().toString()
         FirebaseDatabase.getInstance().reference.child("connections_wholesalers")
             .child(name!!)
             .child(company.displayName)
@@ -114,8 +162,7 @@ class CompanyDetailActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 dismissLoadingDialog(progressDialog)
                 Toast.makeText(applicationContext, "Connection Request Sent!", Toast.LENGTH_SHORT).show()
-                btn_connection.isEnabled = false
-                btn_connection.isClickable = false
+                btn_connection.visibility = View.GONE
             }
             .addOnFailureListener {
                 dismissLoadingDialog(progressDialog)
@@ -159,6 +206,7 @@ class CompanyDetailActivity : AppCompatActivity() {
         val intent = Intent(this, ProductOrderActivity::class.java)
         val args = Bundle()
         args.putParcelable(PRODUCT_DETAIL, productList[position])
+        args.putBoolean(CONNECTED, isConnected)
         intent.putExtra("BUNDLE", args)
         startActivity(intent)
     }
