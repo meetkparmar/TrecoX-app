@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import com.bebetterprogrammer.trecox.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
@@ -31,7 +32,6 @@ import kotlin.collections.HashMap
 
 class UserInfoFragment : Fragment() {
 
-    private val ONE_MEGABYTE: Long = 1024 * 1024
     private var category_type = arrayOf("Stationery", "Watch")
     private val permission = GetPermission()
     var imageUri: Uri? = null
@@ -39,7 +39,6 @@ class UserInfoFragment : Fragment() {
     var storage: FirebaseStorage? = null
     var storageReference: StorageReference? = null
     var name: String? = null
-    var imageurl: String? = null
     var email: String? = null
     var address: String? = null
     var pinCode: String? = null
@@ -47,13 +46,10 @@ class UserInfoFragment : Fragment() {
     var category: String? = null
     var mobileNumber: String? = null
     private var progressDialog: ProgressDialog? = null
-    private lateinit var localRepository : LocalRepository
+    private lateinit var localRepository: LocalRepository
+    var downloadUri: String? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_user_info, container, false)
     }
 
@@ -88,6 +84,7 @@ class UserInfoFragment : Fragment() {
         iv_image.setOnClickListener {
             uploadPhoto()
         }
+
         btn_add_info.setOnClickListener {
             when {
                 et_name.text.isNullOrEmpty() -> et_name.error = "Required Field"
@@ -96,14 +93,18 @@ class UserInfoFragment : Fragment() {
                 et_shop.text.isNullOrEmpty() -> et_shop.error = "Required Field"
                 et_pin_code.text.isNullOrEmpty() -> et_pin_code.error = "Required Field"
                 et_mobile_number.text.isNullOrEmpty() -> et_mobile_number.error = "Required Field"
-                et_wholesalers_category.text.isNullOrEmpty() -> et_wholesalers_category.error = "Required Field"
-                imageUri == null -> Toast.makeText(context, "Please Select Photo", Toast.LENGTH_SHORT).show()
+                et_wholesalers_category.text.isNullOrEmpty() -> et_wholesalers_category.error =
+                    "Required Field"
+                imageUri == null -> Toast.makeText(
+                    context,
+                    "Please Select Photo",
+                    Toast.LENGTH_SHORT
+                ).show()
                 else -> {
                     progressDialog = showLoadingDialog(requireActivity(), "Adding User Information")
-                    addUserInfo()
+                    fetchImageUrl()
                 }
             }
-
         }
 
         btn_edit.setOnClickListener {
@@ -120,7 +121,74 @@ class UserInfoFragment : Fragment() {
             et_pin_code.setText(pinCode)
             et_shop.setText(shop)
             Picasso.with(context).load(imageUri).into(iv_image)
+            iv_image.clipToOutline = true
         }
+    }
+
+    private fun fetchImageUrl() {
+        val ref = storageReference?.child("wholesaler_image/${name}")
+        val uploadTask = ref?.putFile(imageUri!!)
+
+        val urlTask = uploadTask?.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            ref.downloadUrl
+        }?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                downloadUri = task.result.toString()
+                addUserInfo()
+            } else {
+                dismissLoadingDialog(progressDialog)
+                showErrorToast(requireContext(), R.string.something_wrong_error)
+            }
+        }
+    }
+
+    private fun addUserInfo() {
+        name = et_name.text.toString()
+        email = et_email.text.toString()
+        address = et_address.text.toString()
+        pinCode = et_pin_code.text.toString()
+        shop = et_shop.text.toString()
+        category = et_wholesalers_category.text.toString()
+        mobileNumber = et_mobile_number.text.toString()
+
+        localRepository.setCategory(category.toString())
+
+        val map = HashMap<String, Any>()
+        map["name"] = name!!
+        map["email"] = email!!
+        map["address"] = address!!
+        map["pinCode"] = pinCode!!
+        map["shop"] = shop!!
+        map["category"] = category!!
+        map["mobileNumber"] = mobileNumber!!
+        downloadUri?.let {
+            map["profileUrl"] = downloadUri!!
+        }
+        FirebaseDatabase.getInstance().reference.child("category_wholesalers")
+            .child(category!!)
+            .child(name!!)
+            .setValue(map)
+            .addOnSuccessListener {
+                localRepository.isFirstLaunch(false)
+                localRepository.setName(name!!)
+                localRepository.setEmail(email!!)
+                localRepository.setAddress(address!!)
+                localRepository.setPinCode(pinCode.toString())
+                localRepository.setMobileNumber(mobileNumber!!)
+                localRepository.setShop(shop!!)
+                localRepository.setImageUri(downloadUri.toString())
+                dismissLoadingDialog(progressDialog)
+                updateUI()
+            }
+            .addOnFailureListener {
+                dismissLoadingDialog(progressDialog)
+                showErrorToast(requireContext(), R.string.something_wrong_error)
+            }
     }
 
     private fun uploadPhoto() {
@@ -165,14 +233,16 @@ class UserInfoFragment : Fragment() {
 
     private fun openCamera() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(cameraIntent,
+        startActivityForResult(
+            cameraIntent,
             REQUEST_IMAGE_FROM_CAMERA
         )
     }
 
     private fun openGallery() {
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent,
+        startActivityForResult(
+            galleryIntent,
             REQUEST_IMAGE_FROM_GALLERY
         )
     }
@@ -195,6 +265,7 @@ class UserInfoFragment : Fragment() {
         image_layout.visibility = View.GONE
         iv_image.visibility = View.VISIBLE
         Picasso.with(context).load(uri).into(iv_image)
+        iv_image.clipToOutline = true
     }
 
     private fun getImageUri(context: Context, inImage: Bitmap): Uri? {
@@ -209,68 +280,6 @@ class UserInfoFragment : Fragment() {
         return Uri.parse(path)
     }
 
-    private fun addUserInfo() {
-        name = et_name.text.toString()
-        email = et_email.text.toString()
-        address = et_address.text.toString()
-        pinCode = et_pin_code.text.toString()
-        shop = et_shop.text.toString()
-        category = et_wholesalers_category.text.toString()
-        mobileNumber = et_mobile_number.text.toString()
-
-        localRepository.setCategory(category.toString())
-
-        val riversRef = storageReference?.child("wholesaler_image/${name}")
-        val uploadTask = riversRef?.putFile(imageUri!!)
-
-        uploadTask?.addOnFailureListener {
-            dismissLoadingDialog(progressDialog)
-            showErrorToast(requireContext(), R.string.something_wrong_error)
-        }?.addOnSuccessListener {
-            storageReference?.child("wholesaler_image/${name}")?.downloadUrl?.addOnSuccessListener {
-                imageurl = storageReference?.child("wholesaler_image/${name}")?.path
-
-                val map = HashMap<String, Any>()
-                map["name"] = name!!
-                map["email"] = email!!
-                map["address"] = address!!
-                map["pinCode"] = pinCode!!
-                map["shop"] = shop!!
-                map["category"] = category!!
-                map["mobileNumber"] = mobileNumber!!
-                imageurl?.let {
-                    map["profileUrl"] = imageurl!!
-                }
-                FirebaseDatabase.getInstance().reference.child("category_wholesalers")
-                    .child(category!!)
-                    .child(name!!)
-                    .setValue(map)
-                    .addOnSuccessListener {
-                        localRepository.isFirstLaunch(false)
-                        localRepository.setName(name!!)
-                        localRepository.setEmail(email!!)
-                        localRepository.setAddress(address!!)
-                        localRepository.setPinCode(pinCode.toString())
-                        localRepository.setMobileNumber(mobileNumber!!)
-                        localRepository.setShop(shop!!)
-                        localRepository.setImageUri(imageUri.toString())
-                        dismissLoadingDialog(progressDialog)
-                        updateUI()
-                    }
-                    .addOnFailureListener {
-
-                        dismissLoadingDialog(progressDialog)
-                        showErrorToast(requireContext(), R.string.something_wrong_error)
-                    }
-
-            }?.addOnFailureListener {
-
-                dismissLoadingDialog(progressDialog)
-                showErrorToast(requireContext(), R.string.something_wrong_error)
-            }
-        }
-    }
-
     private fun updateUI() {
         edit_user_detail_layout.visibility = View.GONE
         user_detail_layout.visibility = View.VISIBLE
@@ -282,6 +291,7 @@ class UserInfoFragment : Fragment() {
         tv_pin_code.text = pinCode
         tv_category.text = category
         Picasso.with(context).load(imageUri).into(iv_user_image)
+        iv_user_image.clipToOutline = true
     }
 
     companion object {
