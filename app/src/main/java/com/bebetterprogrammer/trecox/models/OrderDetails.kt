@@ -10,6 +10,7 @@ data class OrderDetails(
     var subCategory: String = "",
     var totalPrice: String = "",
     var date: String = "",
+    var imgUrl: String = "",
     var companyName: String = ""
 ): Parcelable
 
@@ -20,6 +21,7 @@ fun getOrderInstance(data: HashMap<String, String>, companyName: String): OrderD
         data["subCategory"]?: "",
         data["totalPrice"]?: "",
         data["date"] ?: "",
+        data["imgUrl"] ?: "",
         companyName
     )
 }

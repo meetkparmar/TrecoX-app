@@ -130,11 +130,6 @@ class CompanyDetailActivity : AppCompatActivity() {
                             tv_connection_status.setTextColor(Color.parseColor("#ffbe55"))
                             btn_connection.visibility = View.GONE
                         }
-                        "Rejected" -> {
-                            tv_connection_status.text = "Rejected"
-                            tv_connection_status.visibility = View.VISIBLE
-                            tv_connection_status.setTextColor(Color.parseColor("#ff0000"))
-                        }
                     }
                 }
             }

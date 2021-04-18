@@ -96,6 +96,7 @@ class ProductOrderActivity : AppCompatActivity() {
         map["subCategory"] = productDetail.subCategory.toString()
         map["totalItems"] = totalItems.toString()
         map["totalPrice"] = totalPrice.toString()
+        map["imgUrl"] = productDetail.imgUrl.toString()
         map["date"] = dateInString!!
         FirebaseDatabase.getInstance().reference.child("connection_users")
             .child(companyName!!)
@@ -118,6 +119,7 @@ class ProductOrderActivity : AppCompatActivity() {
         map["subCategory"] = productDetail.subCategory.toString()
         map["totalItems"] = totalItems.toString()
         map["totalPrice"] = totalPrice.toString()
+        map["imgUrl"] = productDetail.imgUrl.toString()
         map["date"] = dateInString!!
         FirebaseDatabase.getInstance().reference.child("connections_wholesalers")
             .child(wholesalerName!!)
@@ -134,14 +136,5 @@ class ProductOrderActivity : AppCompatActivity() {
                 dismissLoadingDialog(progressDialog)
                 showErrorToast(this, R.string.something_wrong_error)
             }
-    }
-
-    fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
-        val formatter = SimpleDateFormat(format, locale)
-        return formatter.format(this)
-    }
-
-    fun getCurrentDateTime(): Date {
-        return Calendar.getInstance().time
     }
 }
