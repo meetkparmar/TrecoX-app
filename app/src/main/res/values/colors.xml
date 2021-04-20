@@ -14,4 +14,5 @@
     <color name="grey_30">#4d4d4d</color>
     <color name="grey_20">#333333</color>
     <color name="black">#000000</color>
+    <color name="color_error">#B00020</color>
 </resources>

@@ -13,6 +13,7 @@
     <string name="mobile_number_hint">Enter Mobile Number</string>
     <string name="login_text_line">Already have an account?</string>
     <string name="login">Log in</string>
+    <string name="logout">Log Out</string>
 
     <string name="verify">Verify</string>
     <string name="otp_text">Enter Your OTP</string>

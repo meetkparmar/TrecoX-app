@@ -18,7 +18,9 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.bebetterprogrammer.trecox.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
@@ -122,6 +124,23 @@ class UserInfoFragment : Fragment() {
             Picasso.with(context).load(imageUri).into(iv_image)
             iv_image.clipToOutline = true
         }
+
+        btn_logout.setOnClickListener {
+            Firebase.auth.signOut()
+
+            localRepository.isFirstLaunch(true)
+            localRepository.setName("")
+            localRepository.setEmail("")
+            localRepository.setAddress("")
+            localRepository.setPinCode("")
+            localRepository.setMobileNumber("")
+            localRepository.setShop("")
+            localRepository.setImageUri("")
+            localRepository.setCategory("")
+
+            val intent = Intent(context, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun fetchImageUrl() {
@@ -139,27 +158,11 @@ class UserInfoFragment : Fragment() {
             if (task.isSuccessful) {
                 downloadUri = task.result.toString()
                 addUserInfo()
-                addUserInfoInConnectionTable()
             } else {
                 dismissLoadingDialog(progressDialog)
                 showErrorToast(requireContext(), R.string.something_wrong_error)
             }
         }
-    }
-
-    private fun addUserInfoInConnectionTable() {
-        val map = HashMap<String, String>()
-        map["category"] = category!!
-        FirebaseDatabase.getInstance().reference.child("connections_wholesalers")
-            .child(name!!)
-            .setValue(map)
-            .addOnSuccessListener {
-                dismissLoadingDialog(progressDialog)
-            }
-            .addOnFailureListener {
-                dismissLoadingDialog(progressDialog)
-                showErrorToast(requireContext(), R.string.something_wrong_error)
-            }
     }
 
     private fun addUserInfo() {

@@ -35,6 +35,15 @@
         <item name="strokeWidth">2dp</item>
     </style>
 
+    <style name="Widget.App.Material.Button.Outline.Error" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/color_error</item>
+        <item name="rippleColor">@color/color_error</item>
+        <item name="cornerRadius">@dimen/corner_radius_4dp</item>
+        <item name="android:textColor">@color/color_error</item>
+        <item name="elevation">@dimen/elevations_2dp</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
     <style name="Widget.App.Material.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="rippleColor">@color/colorPrimaryDark</item>
         <item name="cornerRadius">@dimen/corner_radius_4dp</item>
