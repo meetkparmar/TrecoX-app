@@ -5,7 +5,7 @@
 - This System in which user will interact through mobile app & company will reply as well by using web app.
 
 ### Screens
-|:----:|:----:|:----:|
+
 | <img alt="SS_1" src="https://github.com/meetkparmar/TrecoX-app/blob/main/images/images1.jpg"> | <img alt="SS_2" src="https://github.com/meetkparmar/TrecoX-app/blob/main/images/image2.jpg"> | <img alt="SS_3" src="https://github.com/meetkparmar/TrecoX-app/blob/main/images/image3.jpg"> | 
 |:----:|:----:|:----:|
 | <img alt="SS_4" src="https://github.com/meetkparmar/TrecoX-app/blob/main/images/image4.jpg"> | <img alt="SS_5" src="https://github.com/meetkparmar/TrecoX-app/blob/main/images/image5.jpg"> | <img alt="SS_6" src="https://github.com/meetkparmar/TrecoX-app/blob/main/images/image6.jpg"> | 
